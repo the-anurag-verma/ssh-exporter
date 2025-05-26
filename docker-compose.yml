@@ -1,0 +1,17 @@
+version: '3'
+services:
+  ssh_exporter:
+    image: ssh_exporter
+    build: .
+    container_name: ssh_exporter
+    network_mode: host
+    environment:
+      - SSH_HOST=${ssh_host}
+      - SSH_PORT=22
+      - SSH_USER=${ssh_user}
+      - SSH_KEY_PATH=/id_rsa
+      - EXPORTER_PORT=9122
+      - POLL_INTERVAL=30
+    volumes:
+      - ${id_rsa_path}:/id_rsa:ro
+    restart: always
